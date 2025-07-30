@@ -1,10 +1,14 @@
 package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
+import org.springframework.stereotype.Service;
+
 import com.pranjal.project.uber.uberApplication.Services.AuthService;
 import com.pranjal.project.uber.uberApplication.dto.DriverDto;
 import com.pranjal.project.uber.uberApplication.dto.SignupDto;
 import com.pranjal.project.uber.uberApplication.dto.UserDto;
 
+
+@Service
 public class AuthServiceImpl implements AuthService{
 
 	@Override

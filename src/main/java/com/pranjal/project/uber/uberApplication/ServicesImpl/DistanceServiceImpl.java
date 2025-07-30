@@ -1,9 +1,12 @@
 package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
 import org.locationtech.jts.geom.Point;
+import org.springframework.stereotype.Service;
 
 import com.pranjal.project.uber.uberApplication.Services.DistanceService;
 
+
+@Service
 public class DistanceServiceImpl implements  DistanceService{
 
 	@Override

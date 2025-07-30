@@ -2,10 +2,14 @@ package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pranjal.project.uber.uberApplication.Services.DriverService;
 import com.pranjal.project.uber.uberApplication.dto.DriverDto;
 import com.pranjal.project.uber.uberApplication.dto.RideDto;
 
+
+@Service
 public class DriverServiceImpl implements DriverService{
 
 	@Override

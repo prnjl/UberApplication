@@ -2,6 +2,7 @@ package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
 import com.pranjal.project.uber.uberApplication.Entites.RideEntity;
@@ -9,6 +10,7 @@ import com.pranjal.project.uber.uberApplication.Entites.RideStatus;
 import com.pranjal.project.uber.uberApplication.Services.RideService;
 import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
 
+@Service
 public class RideServiceImpl implements RideService {
 
 	@Override
