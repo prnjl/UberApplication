@@ -1,14 +1,23 @@
 package com.pranjal.project.uber.uberApplication.strategiesImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
+import com.pranjal.project.uber.uberApplication.Services.DistanceService;
 import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
 import com.pranjal.project.uber.uberApplication.strategies.RideFareCalStrategy;
 
 public class RideFareDefaultCalStrategyImpl implements RideFareCalStrategy{
+	
+	@Autowired
+	private DistanceService distanceService;
 
 	@Override
-	public double calculationFare(RideRequestDto rideRequestDto) {
+	public double calculationFare(RideRequestEntity rideRequest) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		 double distance =distanceService.calculateDistance(rideRequest.getPickUpLocation(), rideRequest.getDropOffLocation());
+		return distance *10;
 	}
 
 }

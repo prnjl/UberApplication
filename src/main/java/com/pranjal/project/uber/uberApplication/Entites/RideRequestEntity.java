@@ -20,11 +20,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="app_ride_req")
 @Getter
 @Setter
+@ToString
 public class RideRequestEntity {
 
 	
@@ -37,6 +39,8 @@ public class RideRequestEntity {
 	
 	@Column(columnDefinition = "geometry(Point, 4326)")
 	private Point dropOffLocation;
+	
+	private Double fare;
 	
 	@CreationTimestamp
 	private LocalDateTime requestedTime;

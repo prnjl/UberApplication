@@ -36,6 +36,8 @@ public class DriverEntity {
     private UserEntity user;
 
     private Boolean isAvaialble;
+    
+    private String vehicleId;
 
     @Column(columnDefinition = "geometry(Point, 4326)")
     private Point currentLocation;

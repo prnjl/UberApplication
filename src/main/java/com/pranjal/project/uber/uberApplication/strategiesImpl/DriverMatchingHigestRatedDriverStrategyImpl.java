@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
+import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
 import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
 import com.pranjal.project.uber.uberApplication.strategies.DriverMatchingStrategy;
 
@@ -12,7 +13,7 @@ import com.pranjal.project.uber.uberApplication.strategies.DriverMatchingStrateg
 public class DriverMatchingHigestRatedDriverStrategyImpl implements DriverMatchingStrategy {
 
 	@Override
-	public List<DriverEntity> findMatchingDriver(RideRequestDto rideRequestDto) {
+	public List<DriverEntity> findMatchingDriver(RideRequestEntity rideRequestDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

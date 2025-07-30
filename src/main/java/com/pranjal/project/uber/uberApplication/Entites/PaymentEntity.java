@@ -1,6 +1,7 @@
 package com.pranjal.project.uber.uberApplication.Entites;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,8 +34,8 @@ public class PaymentEntity {
 	@Enumerated(EnumType.STRING)
 	private PaymentMenthod paymentMenthod;
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	private RideEntity ride;
+	@OneToMany//(fetch=FetchType.LAZY)
+	private List<RideEntity> ride;
 	
 	private Double amount;
 	
