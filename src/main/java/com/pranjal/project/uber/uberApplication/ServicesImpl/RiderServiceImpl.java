@@ -2,6 +2,10 @@ package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
 import java.util.List;
 
+import com.pranjal.project.uber.uberApplication.Entites.RiderEntity;
+import com.pranjal.project.uber.uberApplication.Entites.UserEntity;
+import com.pranjal.project.uber.uberApplication.Repositories.RiderRepository;
+import lombok.Builder;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +26,14 @@ import com.pranjal.project.uber.uberApplication.strategies.RideFareCalStrategy;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
+
 public class RiderServiceImpl implements RiderService {
 
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private RiderRepository riderRepository;
 	@Autowired
 	private RideFareCalStrategy rideFareCalStrategy;
 
@@ -36,7 +42,7 @@ public class RiderServiceImpl implements RiderService {
 
 	@Autowired
 	private DriverMatchingStrategy driverMatchingStrategy;
-	private Logger log = LoggerFactory.getLogger(RiderServiceImpl.class);
+	//private Logger log = LoggerFactory.getLogger(RiderServiceImpl.class);
 
 	@Override
 	public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
@@ -51,7 +57,6 @@ public class RiderServiceImpl implements RiderService {
 		RideRequestEntity savedRideRequest = rideReqyestRepository.save(rideRequest);
 
 		driverMatchingStrategy.findMatchingDriver(rideRequest);
-		log.info(rideRequest.toString());
 
 		
 		return modelMapper.map(savedRideRequest, RideRequestDto.class);
@@ -79,6 +84,18 @@ public class RiderServiceImpl implements RiderService {
 	public List<RideDto> getAllMyRides() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public RiderEntity createNewRider(UserEntity savedUser) {
+
+		RiderEntity riderEntity= RiderEntity.builder()
+				.user(savedUser)
+				.rating(0.0)
+				.build();
+
+
+		return riderRepository.save(riderEntity);
 	}
 
 }
