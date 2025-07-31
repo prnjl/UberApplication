@@ -26,7 +26,7 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String Email;
+	private String email;
 	private String password;
 	@ElementCollection(fetch = FetchType.LAZY)
 	@Enumerated(EnumType.STRING)
