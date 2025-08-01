@@ -19,7 +19,10 @@ public class RideStrategyManager {
     @Autowired
     private DriverMatchingNearestDriverStrategyImpl driverMatchingNearestDriverStrategy;
 
+    @Autowired
     private RideFareDefaultCalStrategyImpl rideFareDefaultCalStrategy;
+
+    @Autowired
 
     private RideFAreSurgePricingFAreCalStrategy rideFAreSurgePricingFAreCalStrategy;
 

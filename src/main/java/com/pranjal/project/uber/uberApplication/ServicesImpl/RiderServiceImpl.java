@@ -56,7 +56,11 @@ public class RiderServiceImpl implements RiderService {
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
 
         //double fare = rideFareCalStrategy.calculationFare(rideRequest);
-        double fare = rideStrategyManager.rideFareCalStrategy().calculationFare(rideRequest);
+
+        double fare = rideStrategyManager.rideFareCalStrategy()
+                .calculationFare(rideRequest);
+
+
         rideRequest.setFare(fare);
 
         RideRequestEntity savedRideRequest = rideReqyestRepository.save(rideRequest);
