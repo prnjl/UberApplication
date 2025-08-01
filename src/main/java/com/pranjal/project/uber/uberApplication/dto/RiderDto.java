@@ -1,5 +1,9 @@
 package com.pranjal.project.uber.uberApplication.dto;
 
+
+import lombok.Data;
+
+@Data
 public class RiderDto {
 
 	private Long id;

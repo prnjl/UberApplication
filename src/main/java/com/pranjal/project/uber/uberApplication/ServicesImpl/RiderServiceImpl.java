@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.pranjal.project.uber.uberApplication.Entites.RiderEntity;
 import com.pranjal.project.uber.uberApplication.Entites.UserEntity;
+import com.pranjal.project.uber.uberApplication.Exceptions.ResourceNotFoundException;
 import com.pranjal.project.uber.uberApplication.Repositories.RiderRepository;
+import com.pranjal.project.uber.uberApplication.strategies.RideStrategyManager;
 import lombok.Builder;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -29,73 +31,86 @@ import lombok.extern.slf4j.Slf4j;
 
 public class RiderServiceImpl implements RiderService {
 
-	@Autowired
-	private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-	@Autowired
-	private RiderRepository riderRepository;
-	@Autowired
-	private RideFareCalStrategy rideFareCalStrategy;
+    @Autowired
+    private RideStrategyManager rideStrategyManager;
 
-	@Autowired
-	private RideReqyestRepository rideReqyestRepository;
+    @Autowired
+    private RiderRepository riderRepository;
 
-	@Autowired
-	private DriverMatchingStrategy driverMatchingStrategy;
-	//private Logger log = LoggerFactory.getLogger(RiderServiceImpl.class);
+    @Autowired
+    private RideReqyestRepository rideReqyestRepository;
 
-	@Override
-	public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
+    //private Logger log = LoggerFactory.getLogger(RiderServiceImpl.class);
 
-		RideRequestEntity rideRequest = modelMapper.map(rideRequestDto, RideRequestEntity.class);
-
-		rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
-
-		double fare = rideFareCalStrategy.calculationFare(rideRequest);
-		rideRequest.setFare(fare);
-
-		RideRequestEntity savedRideRequest = rideReqyestRepository.save(rideRequest);
-
-		driverMatchingStrategy.findMatchingDriver(rideRequest);
-
-		
-		return modelMapper.map(savedRideRequest, RideRequestDto.class);
-	}
-
-	@Override
-	public RideDto cancelRide(Long rideId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DriverDto rateDriver(Long rideId, Integer rating) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RiderDto getMyProfile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<RideDto> getAllMyRides() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RiderEntity createNewRider(UserEntity savedUser) {
-
-		RiderEntity riderEntity= RiderEntity.builder()
-				.user(savedUser)
-				.rating(0.0)
-				.build();
+    @Override
+    public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
 
 
-		return riderRepository.save(riderEntity);
-	}
+        RiderEntity currentRider = getCurrentRide();
+
+        RideRequestEntity rideRequest = modelMapper.map(rideRequestDto, RideRequestEntity.class);
+
+        rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
+
+        //double fare = rideFareCalStrategy.calculationFare(rideRequest);
+        double fare = rideStrategyManager.rideFareCalStrategy().calculationFare(rideRequest);
+        rideRequest.setFare(fare);
+
+        RideRequestEntity savedRideRequest = rideReqyestRepository.save(rideRequest);
+
+        //driverMatchingStrategy.findMatchingDriver(rideRequest);
+
+        rideStrategyManager.driverMatchingStrategy(currentRider.getRating()).findMatchingDriver(rideRequest);
+
+
+        return modelMapper.map(savedRideRequest, RideRequestDto.class);
+    }
+
+    @Override
+    public RideDto cancelRide(Long rideId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DriverDto rateDriver(Long rideId, Integer rating) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public RiderDto getMyProfile() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<RideDto> getAllMyRides() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public RiderEntity createNewRider(UserEntity savedUser) {
+
+        RiderEntity riderEntity = RiderEntity.builder()
+                .user(savedUser)
+                .rating(0.0)
+                .build();
+
+
+        return riderRepository.save(riderEntity);
+    }
+
+    @Override
+    public RiderEntity getCurrentRide() {
+        //TODO :: implement Spring security to get currentRider
+        return riderRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(
+                "Rider Not Found WIth Id" + 1
+        ));
+    }
 
 }
