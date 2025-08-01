@@ -28,7 +28,6 @@ public class AuthServiceImpl implements AuthService{
 	private ModelMapper modelMapper;
 	@Autowired
 	private USerRepository uSerRepository  ;
-
 	@Autowired
 	private RiderService riderService;
 	@Override
@@ -44,7 +43,7 @@ public class AuthServiceImpl implements AuthService{
 		 UserEntity user=  uSerRepository.findByEmail(signUpDto.getEmail()).orElse(null);
 
         if (user!=null){
-			throw new RuntimeConflictExceptions("Cannot Signup , User Already exist with email " + signUpDto.getEmail());
+			throw new RuntimeConflictExceptions("Cannot Signup , User Already exists with email " + signUpDto.getEmail());
 
 		}
 
@@ -58,6 +57,7 @@ public class AuthServiceImpl implements AuthService{
 		RiderEntity riderEntity = riderService.createNewRider(savedUser);
 
 		// TODO :: Add wallet related service
+
 		return modelMapper.map(savedUser , UserDto.class);
 	}
 
