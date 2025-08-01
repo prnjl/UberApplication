@@ -14,6 +14,7 @@ import com.pranjal.project.uber.uberApplication.Services.AuthService;
 import com.pranjal.project.uber.uberApplication.dto.DriverDto;
 import com.pranjal.project.uber.uberApplication.dto.SignupDto;
 import com.pranjal.project.uber.uberApplication.dto.UserDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
@@ -37,12 +38,13 @@ public class AuthServiceImpl implements AuthService{
 	}
 
 	@Override
+	@Transactional
 	public UserDto signup(SignupDto signUpDto) {
 
 		 UserEntity user=  uSerRepository.findByEmail(signUpDto.getEmail()).orElse(null);
 
         if (user!=null){
-			throw new RuntimeConflictExceptions("Cannot Signup , User Alreday exist with email " + signUpDto.getEmail());
+			throw new RuntimeConflictExceptions("Cannot Signup , User Already exist with email " + signUpDto.getEmail());
 
 		}
 
@@ -51,7 +53,7 @@ public class AuthServiceImpl implements AuthService{
 
 		UserEntity savedUser=  uSerRepository.save(userEntity);
 
-      //create user releted things
+      //create user related things
 
 		RiderEntity riderEntity = riderService.createNewRider(savedUser);
 
