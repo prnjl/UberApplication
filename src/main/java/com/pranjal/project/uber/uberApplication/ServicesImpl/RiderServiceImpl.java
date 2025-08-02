@@ -2,6 +2,7 @@ package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
 import java.util.List;
 
+import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
 import com.pranjal.project.uber.uberApplication.Entites.RiderEntity;
 import com.pranjal.project.uber.uberApplication.Entites.UserEntity;
 import com.pranjal.project.uber.uberApplication.Exceptions.ResourceNotFoundException;
@@ -26,6 +27,7 @@ import com.pranjal.project.uber.uberApplication.strategies.DriverMatchingStrateg
 import com.pranjal.project.uber.uberApplication.strategies.RideFareCalStrategy;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 
@@ -46,6 +48,7 @@ public class RiderServiceImpl implements RiderService {
     //private Logger log = LoggerFactory.getLogger(RiderServiceImpl.class);
 
     @Override
+    @Transactional
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
 
 
@@ -54,7 +57,7 @@ public class RiderServiceImpl implements RiderService {
         RideRequestEntity rideRequest = modelMapper.map(rideRequestDto, RideRequestEntity.class);
 
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
-
+        rideRequest.setRider(currentRider);
         //double fare = rideFareCalStrategy.calculationFare(rideRequest);
 
         double fare = rideStrategyManager.rideFareCalStrategy()
@@ -67,8 +70,9 @@ public class RiderServiceImpl implements RiderService {
 
         //driverMatchingStrategy.findMatchingDriver(rideRequest);
 
-        rideStrategyManager.driverMatchingStrategy(currentRider.getRating()).findMatchingDriver(rideRequest);
+      List<DriverEntity> drivers= rideStrategyManager.driverMatchingStrategy(currentRider.getRating()).findMatchingDriver(rideRequest);
 
+      //TODO:: sent notification or Email to all the drivers about this rider soo that they can accept.
 
         return modelMapper.map(savedRideRequest, RideRequestDto.class);
     }
