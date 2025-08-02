@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/rider")
 @RequiredArgsConstructor
-public class RiderConroller {
+public class RiderController {
 
 	
 	@Autowired
