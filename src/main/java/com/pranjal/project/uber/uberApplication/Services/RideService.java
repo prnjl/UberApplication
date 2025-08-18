@@ -1,12 +1,12 @@
 package com.pranjal.project.uber.uberApplication.Services;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
 import com.pranjal.project.uber.uberApplication.Entites.RideEntity;
+import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
 import com.pranjal.project.uber.uberApplication.Entites.RideStatus;
 import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface RideService {
 
@@ -14,10 +14,10 @@ public interface RideService {
 	
 	void matchWithDrivers(RideRequestDto rideRequestDto);
 	
-	RideEntity createNewRide(RideRequestDto rideRequestDto, DriverEntity driverEntity);
+	RideEntity createNewRide(RideRequestEntity rideRequestEntity, DriverEntity driverEntity);
 
 	
-	RideEntity updateRideStatus(Long rideId, RideStatus rideStatus);
+	RideEntity updateRideStatus(RideEntity ride, RideStatus rideStatus);
 	
 	Page<RideEntity> getAllRidersOfRider(Long rider, PageRequest pageRequest);
 	

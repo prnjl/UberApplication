@@ -1,9 +1,9 @@
 package com.pranjal.project.uber.uberApplication.strategies;
 
-import java.util.List;
-
 import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
 import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
+
+import java.util.List;
 
 public interface DriverMatchingStrategy {
 	

@@ -5,18 +5,16 @@ import com.pranjal.project.uber.uberApplication.Entites.UserEntity;
 import com.pranjal.project.uber.uberApplication.Enums.Roles;
 import com.pranjal.project.uber.uberApplication.Exceptions.RuntimeConflictExceptions;
 import com.pranjal.project.uber.uberApplication.Repositories.USerRepository;
-import com.pranjal.project.uber.uberApplication.Services.RiderService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.pranjal.project.uber.uberApplication.Services.AuthService;
+import com.pranjal.project.uber.uberApplication.Services.RiderService;
 import com.pranjal.project.uber.uberApplication.dto.DriverDto;
 import com.pranjal.project.uber.uberApplication.dto.SignupDto;
 import com.pranjal.project.uber.uberApplication.dto.UserDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.Set;
 
 

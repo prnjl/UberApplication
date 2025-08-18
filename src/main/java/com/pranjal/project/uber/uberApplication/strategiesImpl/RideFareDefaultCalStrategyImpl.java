@@ -1,11 +1,9 @@
 package com.pranjal.project.uber.uberApplication.strategiesImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
 import com.pranjal.project.uber.uberApplication.Services.DistanceService;
-import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
 import com.pranjal.project.uber.uberApplication.strategies.RideFareCalStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

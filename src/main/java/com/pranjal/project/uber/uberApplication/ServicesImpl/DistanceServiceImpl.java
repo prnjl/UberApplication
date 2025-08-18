@@ -1,12 +1,10 @@
 package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
+import com.pranjal.project.uber.uberApplication.Services.DistanceService;
 import lombok.Data;
 import org.locationtech.jts.geom.Point;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import com.pranjal.project.uber.uberApplication.Services.DistanceService;
-import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;

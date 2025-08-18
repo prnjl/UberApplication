@@ -1,11 +1,10 @@
 package com.pranjal.project.uber.uberApplication.Utils;
 
+import com.pranjal.project.uber.uberApplication.dto.PointDto;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
-
-import com.pranjal.project.uber.uberApplication.dto.PointDto;
 
 public class GeomartyUtil {
 

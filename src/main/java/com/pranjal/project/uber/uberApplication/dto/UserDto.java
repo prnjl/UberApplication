@@ -1,12 +1,11 @@
 package com.pranjal.project.uber.uberApplication.dto;
 
-import java.util.Set;
-
 import com.pranjal.project.uber.uberApplication.Enums.Roles;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor

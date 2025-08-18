@@ -1,26 +1,15 @@
 package com.pranjal.project.uber.uberApplication.Entites;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.locationtech.jts.geom.Point;
-
 import com.pranjal.project.uber.uberApplication.Enums.PaymentMenthod;
 import com.pranjal.project.uber.uberApplication.Enums.RideRequestStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.locationtech.jts.geom.Point;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="app_ride_req")

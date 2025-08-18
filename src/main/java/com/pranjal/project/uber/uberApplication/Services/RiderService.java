@@ -1,13 +1,13 @@
 package com.pranjal.project.uber.uberApplication.Services;
 
-import java.util.List;
-
 import com.pranjal.project.uber.uberApplication.Entites.RiderEntity;
 import com.pranjal.project.uber.uberApplication.Entites.UserEntity;
 import com.pranjal.project.uber.uberApplication.dto.DriverDto;
 import com.pranjal.project.uber.uberApplication.dto.RideDto;
 import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
 import com.pranjal.project.uber.uberApplication.dto.RiderDto;
+
+import java.util.List;
 
 public interface RiderService {
 
@@ -23,6 +23,6 @@ public interface RiderService {
 
 	RiderEntity createNewRider(UserEntity savedUser);
 
-	RiderEntity getCurrentRide();
+	RiderEntity getCurrentRider();
 
 }

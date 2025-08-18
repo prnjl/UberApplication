@@ -1,22 +1,40 @@
 package com.pranjal.project.uber.uberApplication.ServicesImpl;
 
+import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
+import com.pranjal.project.uber.uberApplication.Entites.RideEntity;
+import com.pranjal.project.uber.uberApplication.Entites.RideRequestEntity;
+import com.pranjal.project.uber.uberApplication.Entites.RideStatus;
+import com.pranjal.project.uber.uberApplication.Enums.RideRequestStatus;
+import com.pranjal.project.uber.uberApplication.Exceptions.ResourceNotFoundException;
+import com.pranjal.project.uber.uberApplication.Repositories.RideRepository;
+import com.pranjal.project.uber.uberApplication.Services.RideRequestService;
+import com.pranjal.project.uber.uberApplication.Services.RideService;
+import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.pranjal.project.uber.uberApplication.Entites.DriverEntity;
-import com.pranjal.project.uber.uberApplication.Entites.RideEntity;
-import com.pranjal.project.uber.uberApplication.Entites.RideStatus;
-import com.pranjal.project.uber.uberApplication.Services.RideService;
-import com.pranjal.project.uber.uberApplication.dto.RideRequestDto;
+import java.util.Random;
 
 @Service
 public class RideServiceImpl implements RideService {
 
+
+	@Autowired
+	private RideRepository rideRepository;
+
+	@Autowired
+	private RideRequestService rideRequestService;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@Override
 	public RideEntity getRideById(Long rideId) {
 		// TODO Auto-generated method stub
-		return null;
+		return rideRepository.findById(rideId).orElseThrow(()->new ResourceNotFoundException("Ride not Found with id "+rideId));
 	}
 
 	@Override
@@ -26,15 +44,32 @@ public class RideServiceImpl implements RideService {
 	}
 
 	@Override
-	public RideEntity createNewRide(RideRequestDto rideRequestDto, DriverEntity driverEntity) {
+	public RideEntity createNewRide(RideRequestEntity rideRequestEntity, DriverEntity driverEntity) {
 		// TODO Auto-generated method stub
-		return null;
+
+		rideRequestEntity.setRideRequestStatus(RideRequestStatus.CONFIRMED);
+		rideRequestService.updateRideRequest(rideRequestEntity);
+
+		RideEntity ride=modelMapper.map(rideRequestEntity, RideEntity.class);
+
+		ride.setRideStatus(RideStatus.CONFIREMED);
+
+		ride.setDriver(driverEntity);
+
+		ride.setOtp(generateRandomOtp());
+		ride.setId(null);
+
+		return rideRepository.save(ride);
+
 	}
 
 	@Override
-	public RideEntity updateRideStatus(Long rideId, RideStatus rideStatus) {
-		// TODO Auto-generated method stub
-		return null;
+	public RideEntity updateRideStatus(RideEntity ride, RideStatus rideStatus) {
+
+
+		ride.setRideStatus(rideStatus);
+      RideEntity savedRide=rideRepository.save(ride);
+		return savedRide;
 	}
 
 	@Override
@@ -49,4 +84,12 @@ public class RideServiceImpl implements RideService {
 		return null;
 	}
 
+
+	private String generateRandomOtp(){
+
+		Random random= new Random();
+		int otp =random.nextInt(10000); //0 to 9999
+
+		return String.format("%04d",otp);
+	}
 }

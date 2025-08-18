@@ -1,25 +1,13 @@
 package com.pranjal.project.uber.uberApplication.Entites;
 
-import java.time.LocalDateTime;
-
+import com.pranjal.project.uber.uberApplication.Enums.PaymentMenthod;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 
-import com.pranjal.project.uber.uberApplication.Enums.PaymentMenthod;
-import com.pranjal.project.uber.uberApplication.Enums.RideRequestStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -51,6 +39,8 @@ public class RideEntity {
 
 	@Enumerated(EnumType.STRING)
 	private RideStatus rideStatus;
+
+	private String otp;
 	
 	private Double fare;
 	
