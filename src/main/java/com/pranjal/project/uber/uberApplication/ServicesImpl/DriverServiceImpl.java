@@ -51,8 +51,10 @@ public class DriverServiceImpl implements DriverService {
             throw new RuntimeException("Driver is not available due to unavailability  ");
         }
 
-        currentDriver.setIsAvaialble(false);
-        DriverEntity savedDriver=driverRepository.save(currentDriver);
+        /*currentDriver.setIsAvaialble(false);
+        DriverEntity savedDriver=driverRepository.save(currentDriver);*/
+
+        DriverEntity savedDriver=updateDriversAvailability(currentDriver,Boolean.FALSE);
 
         RideEntity createdRide = rideService.createNewRide(rideRequestEntity, savedDriver);
 
@@ -80,8 +82,9 @@ public class DriverServiceImpl implements DriverService {
             throw  new RuntimeException("Ride Connot be cancelled , Invalid status "+ride.getRideStatus());
         }
         RideEntity cancledRide= rideService.updateRideStatus(ride,RideStatus.CANCELLED);
-        driver.setIsAvaialble(true);
-        driverRepository.save(driver);
+        /*driver.setIsAvaialble(true);
+        driverRepository.save(driver);*/
+        updateDriversAvailability(driver,Boolean.TRUE);
         return modelMapper.map(ride,RideDto.class);
     }
 
@@ -135,14 +138,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public void updateDriversAvailability(DriverEntity driver, Boolean isAvailable) {
+    public DriverEntity updateDriversAvailability(DriverEntity driver, Boolean isAvailable) {
 
        /* DriverEntity driver=driverRepository.findById(driverId).
                 orElseThrow(()->new ResourceNotFoundException("Driver not found with Id "+driverId));
 */
 
         driver.setIsAvaialble(isAvailable);
-        driverRepository.save(driver);
+      return   driverRepository.save(driver);
 
     }
 

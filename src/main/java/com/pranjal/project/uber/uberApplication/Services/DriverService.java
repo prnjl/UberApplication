@@ -25,6 +25,6 @@ public interface DriverService {
 
 	DriverDto getMyProfile();
 
-  void updateDriversAvailability(DriverEntity driver, Boolean isAvailable);
+  DriverEntity updateDriversAvailability(DriverEntity driver, Boolean isAvailable);
 	Page<RideDto> getAllMyRides(PageRequest pageRequest);
 }

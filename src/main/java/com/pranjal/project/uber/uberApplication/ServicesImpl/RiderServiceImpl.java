@@ -15,6 +15,8 @@ import com.pranjal.project.uber.uberApplication.dto.RiderDto;
 import com.pranjal.project.uber.uberApplication.strategies.RideStrategyManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -105,12 +107,22 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public RiderDto getMyProfile() {
         // TODO Auto-generated method stub
-        return null;
+
+        RiderEntity  currentRider = getCurrentRider();
+
+
+        return modelMapper.map(currentRider,RiderDto.class);
     }
 
     @Override
-    public List<RideDto> getAllMyRides() {
-        // TODO Auto-generated method stub
+    public Page<RideDto> getAllMyRides(PageRequest pageRequest) {
+
+
+        RiderEntity  currentRider = getCurrentRider();
+
+        Page<RideDto> rideDto= rideService.getAllRidersOfRider(currentRider.getId(),pageRequest).map(
+                rideEntity -> modelMapper.map(rideEntity,RideDto.class)
+        );
         return null;
     }
 
